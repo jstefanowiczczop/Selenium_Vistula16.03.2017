@@ -20,72 +20,69 @@ public class NewUserTestArena {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
 
-
+        //open website and logging in by administration
         driver.get("http://demo.testarena.pl");
         driver.findElement(By.id("email")).sendKeys("administrator@testarena.pl");
         driver.findElement(By.id("password")).sendKeys("sumXQQ72$L");
         driver.findElement(By.id("login")).click();
+
+        //open window in order to register new user
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='header_admin']")));
         assertTrue(driver.findElement(By.xpath("//div[@class='header_admin']")).isDisplayed());
         driver.findElement(By.xpath("//div[@class='header_admin']")).click();
         driver.findElement(By.xpath("//a[@href='http://demo.testarena.pl/administration/users']")).click();
         driver.findElement(By.className("button_link")).click();
-
-        driver.findElement(By.id("firstname")).sendKeys("Papaaaa");
-        driver.findElement((By.id("lastname"))).sendKeys("Smerfff");
-        driver.findElement(By.id("email")).sendKeys("doTestow00.vistula.waw@migmail.pl");
-        driver.findElement(By.id("organization")).sendKeys("WEb Driver Development Sp. z o.o.");
+        //register new user
+        driver.findElement(By.id("firstname")).sendKeys("Papa");
+        driver.findElement((By.id("lastname"))).sendKeys("Smerf");
+        driver.findElement(By.id("email")).sendKeys("vistula2.waw@migmail.pl");
         driver.findElement(By.id("department")).sendKeys("IT Solutions");
-        driver.findElement(By.id("phoneNumber")).sendKeys("5555 55 55555");
         driver.findElement(By.id("save")).click();
 
+        //check saved new user
         driver.findElement(By.className("j_close_button")).click();
-        driver.findElement(By.xpath("//td[@title='Papaaaa']")).isDisplayed();
-        assertTrue(driver.findElement(By.xpath("//td[@class='t_name first-name'] |  //td[@title = 'Papaaaa']")).isDisplayed());
+        driver.findElement(By.xpath("//td[@title='Papa']")).isDisplayed();
+        assertTrue(driver.findElement(By.xpath("//td[@class='t_name first-name'] |  //td[@title = 'Papa']")).isDisplayed());
 
         driver.close();
     }
 
-    @After
-    public void checkAddedNewUser() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
 
+ @After
+   public void checkAddedNewUser() {
 
-        for (String handle : driver.getWindowHandles()) {
-            driver.switchTo().window(handle);
+    // we see window
+     ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text() = 'vistula2.waw@migmail.pl']"));
+     driver.findElement(By.xpath("//*[text() = 'vistula2.waw@migmail.pl']"));
+    assertTrue(driver.findElement(By.xpath("//*[text() = 'vistula2.waw@migmail.pl']")).isDisplayed());
 
-        }
-
-        driver.findElement(By.xpath("//div[@id='j_info_box']"));
-        assertTrue(driver.findElement(By.xpath("//div[@id='j_info_box']")).isDisplayed());
-
-
-        driver.quit();
+    driver.quit();
     }
 
 
     @Test
 
     public void checkEmailUserAndChangePasswordUser() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
 
+         //login on email
         driver.get("http://migmail.pl/");
-        driver.findElement(By.id("login")).sendKeys("doTestow00.vistula.waw");
+        driver.findElement(By.id("login")).sendKeys("vistula2.waw");
         driver.findElement(By.xpath("//input[@type='submit']")).click();
 
+        // find new messege and clik on it
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[a='Utworzenie konta']")));
-
         driver.findElement(By.xpath("//td[a='Utworzenie konta']")).click();
         driver.findElement(By.xpath("//a[contains(@href,'testarena.pl')]")).click();
 
+        // go to the recently opened new window
         for (String handle : driver.getWindowHandles()) {
             driver.switchTo().window(handle);
         }
 
         wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
         assertTrue(driver.findElement(By.id("password")).isDisplayed());
+
+       // write new user password and click
         driver.findElement((By.xpath("//input[@id='password']"))).sendKeys("PapaSmerff6");
         driver.findElement(By.name("confirmPassword")).sendKeys("PapaSmerff6");
         driver.findElement(By.id("new")).click();
