@@ -32,10 +32,13 @@ public class NewUserTestArena {
         driver.findElement(By.xpath("//div[@class='header_admin']")).click();
         driver.findElement(By.xpath("//a[@href='http://demo.testarena.pl/administration/users']")).click();
         driver.findElement(By.className("button_link")).click();
+
         //register new user
         driver.findElement(By.id("firstname")).sendKeys("Papa");
         driver.findElement((By.id("lastname"))).sendKeys("Smerf");
-        driver.findElement(By.id("email")).sendKeys("vistula2.waw@migmail.pl");
+
+        //if you want to do this test again you shoud change email
+        driver.findElement(By.id("email")).sendKeys("vistula7.waw@migmail.pl");
         driver.findElement(By.id("department")).sendKeys("IT Solutions");
         driver.findElement(By.id("save")).click();
 
@@ -51,10 +54,11 @@ public class NewUserTestArena {
  @After
    public void checkAddedNewUser() {
 
-    // we see window
-     ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text() = 'vistula2.waw@migmail.pl']"));
-     driver.findElement(By.xpath("//*[text() = 'vistula2.waw@migmail.pl']"));
-    assertTrue(driver.findElement(By.xpath("//*[text() = 'vistula2.waw@migmail.pl']")).isDisplayed());
+    // we can see window for a new user, we check if the user is correct
+     //if you want to do this test again you shoud change email
+     ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text() = 'vistula7.waw@migmail.pl']"));
+     driver.findElement(By.xpath("//*[text() = 'vistula7.waw@migmail.pl']"));
+     assertTrue(driver.findElement(By.xpath("//*[text() = 'vistula7.waw@migmail.pl']")).isDisplayed());
 
     driver.quit();
     }
@@ -66,7 +70,9 @@ public class NewUserTestArena {
 
          //login on email
         driver.get("http://migmail.pl/");
-        driver.findElement(By.id("login")).sendKeys("vistula2.waw");
+
+        //if you want to do this test again you shoud change email
+        driver.findElement(By.id("login")).sendKeys("vistula6.waw");
         driver.findElement(By.xpath("//input[@type='submit']")).click();
 
         // find new messege and clik on it
