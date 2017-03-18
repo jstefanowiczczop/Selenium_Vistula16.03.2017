@@ -18,7 +18,7 @@ public class NewUserTestArena {
     @Before
     public void addNewUser() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver,20);
 
         //open website and logging in by administration
         driver.get("http://demo.testarena.pl");
@@ -38,7 +38,7 @@ public class NewUserTestArena {
         driver.findElement((By.id("lastname"))).sendKeys("Smerf");
 
         //if you want to do this test again you shoud change email
-        driver.findElement(By.id("email")).sendKeys("vistula0009.waw@migmail.pl");
+        driver.findElement(By.id("email")).sendKeys("vistula0016.waw@migmail.pl");
         driver.findElement(By.id("department")).sendKeys("IT Solutions");
         driver.findElement(By.id("save")).click();
 
@@ -50,31 +50,17 @@ public class NewUserTestArena {
         driver.close();
     }
 
-
- @After
-   public void checkAddedNewUser() {
-
-    // we can see window for a new user, we check if the user is correct
-     //if you want to do this test again you shoud change email
-     ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text() = 'vistula0009.waw@migmail.pl']"));
-     //driver.findElement(By.xpath("//*[text() = 'vistula7.waw@migmail.pl']"));
-     //assertTrue(driver.findElement(By.xpath("//*[text() = 'vistula8.waw@migmail.pl']")).isDisplayed());
-
-    driver.quit();
-    }
-
-
     @Test
 
     public void checkEmailUserAndChangePasswordUser() {
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
+     driver = new ChromeDriver();
+     wait = new WebDriverWait(driver, 20);
 
-         //login on email
+        //login on email
         driver.get("http://migmail.pl/");
 
         //if you want to do this test again you shoud change email
-        driver.findElement(By.id("login")).sendKeys("vistula0009.waw");
+        driver.findElement(By.id("login")).sendKeys("vistula0016.waw");
         driver.findElement(By.xpath("//input[@type='submit']")).click();
 
         // find new messege and clik on it
@@ -90,11 +76,23 @@ public class NewUserTestArena {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("password")));
         assertTrue(driver.findElement(By.id("password")).isDisplayed());
 
-       // write new user password and click
+        // write new user password and click
         driver.findElement((By.xpath("//input[@id='password']"))).sendKeys("PapaSmerff6");
         driver.findElement(By.name("confirmPassword")).sendKeys("PapaSmerff6");
         driver.findElement(By.id("new")).click();
 
+    }
+
+ @After
+   public void checkAddedNewUser() {
+
+    // we can see window for a new user, we check if the user is correct
+     //if you want to do this test again you shoud change email
+     ExpectedConditions.presenceOfElementLocated(By.xpath("//*[text() = 'vistula0016.waw@migmail.pl']"));
+     driver.findElement(By.xpath("//*[text() = 'vistula0016.waw@migmail.pl']"));
+     assertTrue(driver.findElement(By.xpath("//*[text() = 'vistula0016.waw@migmail.pl']")).isDisplayed());
+
+    driver.quit();
     }
 
 }
